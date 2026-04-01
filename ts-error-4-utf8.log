@@ -1,0 +1,454 @@
+﻿node.exe : - 
+Building...
+At C:\Program Files\nod
+ejs\npx.ps1:29 char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (- Building...   
+ :String) [], Remot    
+eException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+
+ERROR ReferenceError: 
+localStorage is not 
+defined
+    at i.loadUser (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/274760b8-8d34-4936-b81
+1-5b58b7175bdb/chunk-5R
+DMZB5H.mjs:2:905)
+    at new i (file:///C
+:/WorkSpace/POC/Havenza
+/havenza-frontend/.angu
+lar/prerender-root/2747
+60b8-8d34-4936-b811-5b5
+8b7175bdb/chunk-5RDMZB5
+H.mjs:2:499)
+    at St.╔╡fac [as 
+factory] (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/274760b8
+-8d34-4936-b811-5b58b71
+75bdb/chunk-5RDMZB5H.mj
+s:2:1255)
+    at fn.hydrate (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/274760b8-8d34-4936-b81
+1-5b58b7175bdb/chunk-PR
+YRW3H6.mjs:8:11492)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/274
+760b8-8d34-4936-b811-5b
+58b7175bdb/chunk-PRYRW3
+H6.mjs:8:10620)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/274
+760b8-8d34-4936-b811-5b
+58b7175bdb/chunk-PRYRW3
+H6.mjs:8:10704)
+    at ts.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/274
+760b8-8d34-4936-b811-5b
+58b7175bdb/chunk-PRYRW3
+H6.mjs:34:8343)
+    at El (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/274760b
+8-8d34-4936-b811-5b58b7
+175bdb/chunk-PRYRW3H6.m
+js:8:22468)
+    at Cl (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/274760b
+8-8d34-4936-b811-5b58b7
+175bdb/chunk-PRYRW3H6.m
+js:8:22702)
+    at oe (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/274760b
+8-8d34-4936-b811-5b58b7
+175bdb/chunk-PRYRW3H6.m
+js:8:43491)
+ERROR ReferenceError: 
+localStorage is not 
+defined
+    at i.loadUser (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/d9f01c28-5672-4f1b-aa1
+e-cdc9cf389e0f/chunk-5R
+DMZB5H.mjs:2:905)
+    at new i (file:///C
+:/WorkSpace/POC/Havenza
+/havenza-frontend/.angu
+lar/prerender-root/d9f0
+1c28-5672-4f1b-aa1e-cdc
+9cf389e0f/chunk-5RDMZB5
+H.mjs:2:499)
+    at St.╔╡fac [as 
+factory] (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/d9f01c28
+-5672-4f1b-aa1e-cdc9cf3
+89e0f/chunk-5RDMZB5H.mj
+s:2:1255)
+    at fn.hydrate (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/d9f01c28-5672-4f1b-aa1
+e-cdc9cf389e0f/chunk-PR
+YRW3H6.mjs:8:11492)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/d9f
+01c28-5672-4f1b-aa1e-cd
+c9cf389e0f/chunk-PRYRW3
+H6.mjs:8:10620)
+    at Zp (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/d9f01c2
+8-5672-4f1b-aa1e-cdc9cf
+389e0f/chunk-PRYRW3H6.m
+js:5:2414)
+    at L (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/d9f01c28
+-5672-4f1b-aa1e-cdc9cf3
+89e0f/chunk-PRYRW3H6.mj
+s:5:2490)
+    at T (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/d9f01c28
+-5672-4f1b-aa1e-cdc9cf3
+89e0f/chunk-PRYRW3H6.mj
+s:5:2532)
+    at Xn (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/d9f01c2
+8-5672-4f1b-aa1e-cdc9cf
+389e0f/chunk-WXIU2WWC.m
+js:2:161060)
+    at file:///C:/WorkS
+pace/POC/Havenza/havenz
+a-frontend/.angular/pre
+render-root/d9f01c28-56
+72-4f1b-aa1e-cdc9cf389e
+0f/chunk-3KEWWJBV.mjs:2
+:35027
+ERROR ReferenceError: 
+localStorage is not 
+defined
+    at i.loadUser (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/b4f9a9ea-31b2-4ef1-9de
+4-74cfc3f0290f/chunk-5R
+DMZB5H.mjs:2:905)
+    at new i (file:///C
+:/WorkSpace/POC/Havenza
+/havenza-frontend/.angu
+lar/prerender-root/b4f9
+a9ea-31b2-4ef1-9de4-74c
+fc3f0290f/chunk-5RDMZB5
+H.mjs:2:499)
+    at St.╔╡fac [as 
+factory] (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/b4f9a9ea
+-31b2-4ef1-9de4-74cfc3f
+0290f/chunk-5RDMZB5H.mj
+s:2:1255)
+    at fn.hydrate (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/b4f9a9ea-31b2-4ef1-9de
+4-74cfc3f0290f/chunk-PR
+YRW3H6.mjs:8:11492)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/b4f
+9a9ea-31b2-4ef1-9de4-74
+cfc3f0290f/chunk-PRYRW3
+H6.mjs:8:10620)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/b4f
+9a9ea-31b2-4ef1-9de4-74
+cfc3f0290f/chunk-PRYRW3
+H6.mjs:8:10704)
+    at ts.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/b4f
+9a9ea-31b2-4ef1-9de4-74
+cfc3f0290f/chunk-PRYRW3
+H6.mjs:34:8343)
+    at El (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/b4f9a9e
+a-31b2-4ef1-9de4-74cfc3
+f0290f/chunk-PRYRW3H6.m
+js:8:22468)
+    at Cl (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/b4f9a9e
+a-31b2-4ef1-9de4-74cfc3
+f0290f/chunk-PRYRW3H6.m
+js:8:22702)
+    at oe (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/b4f9a9e
+a-31b2-4ef1-9de4-74cfc3
+f0290f/chunk-PRYRW3H6.m
+js:8:43491)
+ERROR ReferenceError: 
+localStorage is not 
+defined
+    at i.loadUser (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/9d9d5dcb-3b56-4133-a85
+0-3ee28ac9b97b/chunk-5R
+DMZB5H.mjs:2:905)
+    at new i (file:///C
+:/WorkSpace/POC/Havenza
+/havenza-frontend/.angu
+lar/prerender-root/9d9d
+5dcb-3b56-4133-a850-3ee
+28ac9b97b/chunk-5RDMZB5
+H.mjs:2:499)
+    at St.╔╡fac [as 
+factory] (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/9d9d5dcb
+-3b56-4133-a850-3ee28ac
+9b97b/chunk-5RDMZB5H.mj
+s:2:1255)
+    at fn.hydrate (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/9d9d5dcb-3b56-4133-a85
+0-3ee28ac9b97b/chunk-PR
+YRW3H6.mjs:8:11492)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/9d9
+d5dcb-3b56-4133-a850-3e
+e28ac9b97b/chunk-PRYRW3
+H6.mjs:8:10620)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/9d9
+d5dcb-3b56-4133-a850-3e
+e28ac9b97b/chunk-PRYRW3
+H6.mjs:8:10704)
+    at ts.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/9d9
+d5dcb-3b56-4133-a850-3e
+e28ac9b97b/chunk-PRYRW3
+H6.mjs:34:8343)
+    at El (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/9d9d5dc
+b-3b56-4133-a850-3ee28a
+c9b97b/chunk-PRYRW3H6.m
+js:8:22468)
+    at Cl (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/9d9d5dc
+b-3b56-4133-a850-3ee28a
+c9b97b/chunk-PRYRW3H6.m
+js:8:22702)
+    at oe (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/9d9d5dc
+b-3b56-4133-a850-3ee28a
+c9b97b/chunk-PRYRW3H6.m
+js:8:43491)
+ERROR ReferenceError: 
+localStorage is not 
+defined
+    at i.loadUser (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/573be4ea-2342-4656-a1a
+5-bd4222f61c83/chunk-5R
+DMZB5H.mjs:2:905)
+    at new i (file:///C
+:/WorkSpace/POC/Havenza
+/havenza-frontend/.angu
+lar/prerender-root/573b
+e4ea-2342-4656-a1a5-bd4
+222f61c83/chunk-5RDMZB5
+H.mjs:2:499)
+    at St.╔╡fac [as 
+factory] (file:///C:/Wo
+rkSpace/POC/Havenza/hav
+enza-frontend/.angular/
+prerender-root/573be4ea
+-2342-4656-a1a5-bd4222f
+61c83/chunk-5RDMZB5H.mj
+s:2:1255)
+    at fn.hydrate (file
+:///C:/WorkSpace/POC/Ha
+venza/havenza-frontend/
+.angular/prerender-root
+/573be4ea-2342-4656-a1a
+5-bd4222f61c83/chunk-PR
+YRW3H6.mjs:8:11492)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/573
+be4ea-2342-4656-a1a5-bd
+4222f61c83/chunk-PRYRW3
+H6.mjs:8:10620)
+    at fn.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/573
+be4ea-2342-4656-a1a5-bd
+4222f61c83/chunk-PRYRW3
+H6.mjs:8:10704)
+    at ts.get (file:///
+C:/WorkSpace/POC/Havenz
+a/havenza-frontend/.ang
+ular/prerender-root/573
+be4ea-2342-4656-a1a5-bd
+4222f61c83/chunk-PRYRW3
+H6.mjs:34:8343)
+    at El (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/573be4e
+a-2342-4656-a1a5-bd4222
+f61c83/chunk-PRYRW3H6.m
+js:8:22468)
+    at Cl (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/573be4e
+a-2342-4656-a1a5-bd4222
+f61c83/chunk-PRYRW3H6.m
+js:8:22702)
+    at oe (file:///C:/W
+orkSpace/POC/Havenza/ha
+venza-frontend/.angular
+/prerender-root/573be4e
+a-2342-4656-a1a5-bd4222
+f61c83/chunk-PRYRW3H6.m
+js:8:43491)
+Browser bundles        
+Initial chunk files     | Names               |  Raw size | Estimated transfer size
+main-KUK5I75R.js        | main                | 175.07 kB |                30.21 kB
+chunk-I577V7T3.js       | -                   | 167.09 kB |                48.82 kB
+chunk-NJ7GYGUF.js       | -                   | 104.63 kB |                22.01 kB
+styles-7ODOMMDL.css     | styles              |  83.94 kB |                 7.66 kB
+chunk-VUZHNX5F.js       | -                   |  75.88 kB |                19.72 kB
+polyfills-FFHMD2TL.js   | polyfills           |  33.71 kB |                11.02 kB
+chunk-5VTGAKJ7.js       | -                   |  32.61 kB |                 7.12 kB
+chunk-RL4IR7ZA.js       | -                   |  12.27 kB |                 3.75 kB
+chunk-XAZLOLJU.js       | -                   |   3.96 kB |              1022 bytes
+
+                        | Initial total       | 689.15 kB |               151.31 kB
+
+Lazy chunk files        | Names               |  Raw size | Estimated transfer size
+chunk-B6KSSGZL.js       | dashboard-component | 232.98 kB |                68.38 kB
+chunk-H2EOS2R7.js       | -                   |  82.07 kB |                11.76 kB
+chunk-B67J5AL2.js       | browser             |  62.22 kB |                16.49 kB
+chunk-CLICQEW2.js       | -                   |   8.08 kB |                 1.71 kB
+chunk-7WJALENA.js       | home-component      |   7.08 kB |                 2.20 kB
+chunk-WCMHHASC.js       | register-component  |   3.99 kB |                 1.36 kB
+chunk-QVVLU2R5.js       | login-component     |   3.25 kB |                 1.22 kB
+
+
+Server bundles         
+Initial chunk files     | Names               |  Raw size
+server.mjs              | server              |   1.06 MB |                        
+polyfills.server.mjs    | polyfills.server    | 262.30 kB |                        
+chunk-2SPJOUDG.mjs      | -                   | 238.59 kB |                        
+chunk-PRYRW3H6.mjs      | -                   | 181.61 kB |                        
+chunk-WXIU2WWC.mjs      | -                   | 175.30 kB |                        
+chunk-3KEWWJBV.mjs      | -                   |  74.42 kB |                        
+chunk-RAZNS4CR.mjs      | -                   |  61.79 kB |                        
+chunk-FYTYYUUE.mjs      | -                   |  45.38 kB |                        
+chunk-5RDMZB5H.mjs      | -                   |  32.70 kB |                        
+chunk-ZVBHC42D.mjs      | -                   |  30.70 kB |                        
+chunk-2OUPN53V.mjs      | -                   |  30.43 kB |                        
+chunk-ULNYCYYU.mjs      | -                   |  12.34 kB |                        
+chunk-J4BDXTMW.mjs      | -                   |   3.99 kB |                        
+chunk-VVCT4QZE.mjs      | -                   |   2.48 kB |                        
+render-utils.server.mjs | render-utils.server |   1.58 kB |                        
+main.server.mjs         | main.server         | 410 bytes |                        
+
+Lazy chunk files        | Names               |  Raw size
+chunk-5SKXWK7F.mjs      | dashboard-component | 233.08 kB |                        
+chunk-RVZSYPFA.mjs      | -                   |  82.10 kB |                        
+chunk-QZP2S7SI.mjs      | xhr2                |  11.79 kB |                        
+chunk-APDLQREB.mjs      | -                   |   8.11 kB |                        
+chunk-DKFWGVPO.mjs      | home-component      |   7.21 kB |                        
+chunk-BFGBYM2C.mjs      | register-component  |   4.11 kB |                        
+chunk-TRIBFFBC.mjs      | login-component     |   3.38 kB |                        
+chunk-2FT3DZV5.mjs      | browser             | 859 bytes |                        
+
+Prerendered 4 static routes.
+Output location: C:\WorkSpace\POC\Havenza\havenza-frontend\dist\havenza-frontend
+
+Application bundle generation complete. [16.899 seconds]
+
+Γû▓ [WARNING] bundle 
+initial exceeded 
+maximum budget. Budget 
+500.00 kB was not met 
+by 189.15 kB with a 
+total of 689.15 kB.
+
+
