@@ -16,17 +16,14 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
   imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, ImgFallbackDirective],
   template: `
     <!-- Top Scrollable Carousel covering full window (Full viewport minus header) -->
-    <div class="hero-carousel-section" *ngIf="featuredProducts.length > 0">
+    <div class="hero-carousel-section" *ngIf="banners.length > 0">
       <div class="carousel-track" [style.transform]="'translateX(-' + currentSlide * 100 + 'vw)'">
-        <div class="carousel-slide" *ngFor="let prod of featuredProducts">
-          <div class="slide-bg" [style.backgroundImage]="'url(' + (prod.thumbnailUrl || 'assets/placeholder.png') + ')'"></div>
+        <div class="carousel-slide" *ngFor="let banner of banners">
+          <div class="slide-bg" [style.backgroundImage]="'url(' + (banner.imageUrl || 'assets/placeholder.png') + ')'"></div>
           <div class="slide-overlay">
             <div class="slide-content">
-              <span class="badge new-badge">NEW ARRIVAL</span>
-              <h1 class="slide-title">{{ prod.name }}</h1>
-              <p class="slide-desc">{{ (prod.description | slice:0:120) + '...' }}</p>
-              <div class="slide-price">&#8377; {{ prod.basePrice }}</div>
-              <button mat-raised-button color="accent" class="shop-now-btn" [routerLink]="['/products', prod.slug]">View Product</button>
+              <h1 class="slide-title" style="margin-bottom: 32px;">{{ banner.title }}</h1>
+              <button *ngIf="banner.linkUrl" mat-raised-button color="accent" class="shop-now-btn" [routerLink]="banner.linkUrl">Shop Now</button>
             </div>
           </div>
         </div>
@@ -41,7 +38,7 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
       </button>
       
       <div class="carousel-indicators">
-        <div class="dot" *ngFor="let p of featuredProducts; let i=index" 
+        <div class="dot" *ngFor="let b of banners; let i=index" 
              [class.active]="currentSlide === i" (click)="goToSlide(i)"></div>
       </div>
     </div>
@@ -53,6 +50,7 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
           <h2>Our Collection</h2>
           <div class="filter-chips">
             <button mat-stroked-button [class.active-filter]="selectedCategory === null" (click)="filterByCategory(null)">All</button>
+            <button mat-stroked-button [class.active-filter]="selectedCategory === -1" (click)="filterByCategory(-1)">NEW</button>
             <button mat-stroked-button *ngFor="let cat of categories" 
                     [class.active-filter]="selectedCategory === cat.id" 
                     (click)="filterByCategory(cat.id)">
@@ -85,13 +83,13 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
     </div>
   `,
   styles: [`
-    /* Hero Carousel - full window */
+    /* Hero Carousel - Reduced height */
     .hero-carousel-section {
       width: 100vw;
-      height: calc(100vh - 64px); /* Full height minus header */
+      height: 450px; /* Reduced fixed height */
       position: relative;
       overflow: hidden;
-      margin-left: calc(-50vw + 50%); /* Fix for container bleed */
+      margin-left: calc(-50vw + 50%);
       margin-top: -1px;
     }
     .carousel-track {
@@ -118,10 +116,10 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
     .slide-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+      background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
       display: flex;
       align-items: center;
-      padding: 0 10%;
+      padding: 0 8%;
     }
     .slide-content {
       max-width: 600px;
@@ -226,8 +224,10 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
 })
 export class HomeComponent implements OnInit {
   productService = inject(ProductService);
+  bannerService = inject(BannerService);
 
   categories: Category[] = [];
+  banners: Banner[] = [];
   featuredProducts: Product[] = []; // Top 5
   allProducts: Product[] = []; // Bottom grid
   filteredProducts: Product[] = []; // Bottom grid display
@@ -241,11 +241,19 @@ export class HomeComponent implements OnInit {
       if (res.success) this.categories = res.data;
     });
 
-    // Fetch 5 latest products for carousel
+    // Fetch active banners for Top Carousel
+    this.bannerService.getActiveBanners().subscribe(res => {
+      if (res.success) {
+        // Sort matching backend order
+        this.banners = res.data.filter(b => b.active).sort((a,b) => a.sortOrder - b.sortOrder);
+        this.startAutoSlide();
+      }
+    });
+
+    // Fetch 5 latest products for New Arrivals
     this.productService.getProducts(0, 5, 'createdAt,desc').subscribe(res => {
       if (res.success) {
         this.featuredProducts = res.data.content;
-        this.startAutoSlide();
       }
     });
 
@@ -262,6 +270,8 @@ export class HomeComponent implements OnInit {
     this.selectedCategory = catId;
     if (catId === null) {
       this.filteredProducts = this.allProducts;
+    } else if (catId === -1) {
+      this.filteredProducts = this.featuredProducts;
     } else {
       this.filteredProducts = this.allProducts.filter(p => p.category?.id === catId);
     }
@@ -269,14 +279,14 @@ export class HomeComponent implements OnInit {
 
   // Carousel Logic
   nextSlide() {
-    if (this.featuredProducts.length === 0) return;
-    this.currentSlide = (this.currentSlide + 1) % this.featuredProducts.length;
+    if (this.banners.length === 0) return;
+    this.currentSlide = (this.currentSlide + 1) % this.banners.length;
     this.resetTimer();
   }
 
   prevSlide() {
-    if (this.featuredProducts.length === 0) return;
-    this.currentSlide = (this.currentSlide - 1 + this.featuredProducts.length) % this.featuredProducts.length;
+    if (this.banners.length === 0) return;
+    this.currentSlide = (this.currentSlide - 1 + this.banners.length) % this.banners.length;
     this.resetTimer();
   }
 
@@ -287,8 +297,8 @@ export class HomeComponent implements OnInit {
 
   startAutoSlide() {
     this.slideInterval = setInterval(() => {
-      if (this.featuredProducts.length > 0) {
-        this.currentSlide = (this.currentSlide + 1) % this.featuredProducts.length;
+      if (this.banners.length > 0) {
+        this.currentSlide = (this.currentSlide + 1) % this.banners.length;
       }
     }, 5000);
   }
