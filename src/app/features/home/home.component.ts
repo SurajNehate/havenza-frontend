@@ -8,10 +8,12 @@ import { BannerService } from '../../core/services/banner.service';
 import { ProductService } from '../../core/services/product.service';
 import { Banner, Category, Product } from '../../core/models/models';
 
+import { ImgFallbackDirective } from '../../shared/directives/img-fallback.directive';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, ImgFallbackDirective],
   template: `
     <!-- Top Scrollable Carousel covering full window (Full viewport minus header) -->
     <div class="hero-carousel-section" *ngIf="featuredProducts.length > 0">
@@ -62,7 +64,9 @@ import { Banner, Category, Product } from '../../core/models/models';
         <div class="products-grid">
           <mat-card class="product-card" *ngFor="let prod of filteredProducts" [routerLink]="['/products', prod.slug]">
             <div class="img-wrapper">
-              <img [src]="prod.thumbnailUrl || 'assets/placeholder.png'" [alt]="prod.name" class="prod-img">
+              <img [src]="prod.thumbnailUrl || 'assets/placeholder.png'" 
+                   appImgFallback="product" 
+                   [alt]="prod.name" class="prod-img">
               <div class="hover-action">
                 <button mat-mini-fab color="accent"><mat-icon>shopping_cart</mat-icon></button>
               </div>

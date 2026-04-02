@@ -71,7 +71,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
                   <div class="item-list">
                     <div class="order-item" *ngFor="let item of order.items">
                       <img [src]="item.variant?.imageUrl || 'assets/placeholder.png'" 
-                           appImgFallback
+                           appImgFallback="product"
                            class="item-img" alt="Product Image">
                       <div class="item-info">
                         <h5>{{ item.variant?.productName || item.variant?.name || 'Product' }}</h5>

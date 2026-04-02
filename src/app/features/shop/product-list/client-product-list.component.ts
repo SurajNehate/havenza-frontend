@@ -56,7 +56,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
           
           <div class="product-image-wrapper" [routerLink]="['/products', product.slug]">
             <img [src]="product.thumbnailUrl || 'assets/placeholder.png'" 
-                 appImgFallback
+                 appImgFallback="product"
                  [alt]="product.name">
           </div>
           <mat-card-content class="product-info" [routerLink]="['/products', product.slug]">

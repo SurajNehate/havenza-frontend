@@ -30,7 +30,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
           <mat-card class="cart-item" *ngFor="let item of cart.items">
             <div class="item-visual" [routerLink]="['/products', item.variant.productSlug]">
               <img [src]="item.variant.imageUrl || 'assets/placeholder.png'" 
-                   appImgFallback
+                   appImgFallback="product"
                    alt="Product Image">
             </div>
             

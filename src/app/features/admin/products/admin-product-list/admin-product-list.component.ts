@@ -38,7 +38,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
             <th mat-header-cell *matHeaderCellDef> Image </th>
             <td mat-cell *matCellDef="let element"> 
               <img [src]="element.thumbnailUrl || 'assets/placeholder.png'" 
-                   appImgFallback
+                   appImgFallback="product"
                    class="row-img">
             </td>
           </ng-container>

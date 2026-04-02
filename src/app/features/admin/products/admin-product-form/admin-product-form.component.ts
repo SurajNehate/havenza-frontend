@@ -135,7 +135,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
             <mat-card-content class="img-content">
               <div class="extra-images-list" *ngIf="imageUrls.length > 0">
                 <div class="extra-image-box" *ngFor="let control of imageUrls.controls; let i=index">
-                  <img [src]="control.value" appImgFallback alt="extra image" />
+                  <img [src]="control.value" appImgFallback="product" alt="extra image" />
                   <button type="button" mat-icon-button color="warn" class="remove-img-btn" (click)="removeExtraImage(i)">
                      <mat-icon>close</mat-icon>
                   </button>

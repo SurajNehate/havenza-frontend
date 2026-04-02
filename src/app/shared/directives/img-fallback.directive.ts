@@ -5,21 +5,31 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
   standalone: true
 })
 export class ImgFallbackDirective {
-  @Input() appImgFallback: string = '';
+  /**
+   * Type of fallback to show: 'product' or 'user'. 
+   * Alternatively, can be a direct URL string.
+   */
+  @Input() appImgFallback: 'product' | 'user' | string = 'product';
 
-  private readonly defaultPlaceholder = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRjlGOUY5Ii8+CjxwYXRoIGQ9Ik0zMzIgMTY4SDIxNkMyMDcuMTYzIDIxNiAyMDAgMjIzLjE2MyAyMDAgMjMyVjM0OEMyMDAgMzU2LjgzNyAyMDcuMTYzIDM2NCAyMTYgMzY0SDMzMkMzNDAuODM3IDM2NCAzNDggMzU2LjgzNyAzNDggMzQ4VjIzMkMzNDggMjIzLjE2MyAzNDAuODM3IDIxNiAzMzIgMjE2WiIgc3Ryb2tlPSIjREQ0QjVGIiBzdHJva2Utd2lkdGg9IjI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTI2OCA0NDBMNDQgNDQwTDMwMCAxODRMMTU2IDQ0MCIgc3Ryb2tlPSIjREQ0QjVGIiBzdHJva2Utd2lkdGg9IjhCIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHN0eWxlPnBhdGgsIHJlY3Qge29wYWNpdHk6IDAuMTt9PC9zdHlsZT4KPGcgb3BhY2l0eT0iMC4yIj4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIxMjAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iOCAyIi8+CjxtYXRvci1pY29uIHN0eWxlPSJmb250LXNpemU6IDQ4cHg7IGNvbG9yOiAjOTk5OyBtYXJnaW46IDBhdXRvOyI+aW1hZ2Vfbm90X3N1cHBvcnRlZDwvbWF0b3ItaWNvbj4KPC9nPgo8L3N2Zz4=`;
+  private readonly productPlaceholder = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRjlGOUY5Ii8+CjxwYXRoIGQ9Ik0zNTAgMTEwaDE1MHYzODBIMTEwVjExMGgxNTBtLTEwMCAxMDBoMjUwbS0yNTAgMTAwaDI1MG0tMjUwIDEwMGgyNTAiIHN0cm9rZT0iIzk5OSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPgo8ZyBvcGFjaXR5PSIwLjQiPgo8cGF0aCBkPSJNMzUwIDE1MEgyMThDMTk3IDE1MCAxODAgMTY3IDE4MCAxODhWMzU4QzE4MCAzNzkgMTk3IDM5NiAyMTggMzk2SDM1OEMzODAgMzk2IDM5NiAzNzkgMzk2IDM1OFYxODhDMzk2IDE2NyAzODAgMTUwIDM1OCAxNTBaIiBzdHJva2U9IiM5OTkiIHN0cm9rZS13aWR0aD0iMTYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIyODgiIGN5PSIyNTAiIHI9IjQwIiBzdHJva2U9IiM5OTkiIHN0cm9rZS13aWR0aD0iOCIvPgo8L2c+Cjwvc3ZnPg==`;
+
+  private readonly userPlaceholder = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRjlGOUY5Ii8+CjxyZWN0IHg9IjE1MCIgeT0iMTUwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjEwMCIgZmlsbD0iI2VlZSIvPgo8ZyBvcGFjaXR5PSIwLjQiPgo8Y2lyY2xlIGN4PSIyNTAiIGN5PSIxOTAiIHI9IjYwIiBmaWxsPSIjOTk5Ii8+CjxwYXRoIGQ9Ik0xNTAgMzgwQzE1MCAzMjAgMjAwIDI4MCAyNTAgMjgwQzMwMCAyODAgMzUwIDMyMCAzNTAgMzgwIiBmaWxsPSIjOTk5Ii8+CjwvZz4KPC9zdmc+`;
 
   constructor(private el: ElementRef) {}
 
   @HostListener('error')
   onError() {
     const element: HTMLImageElement = this.el.nativeElement;
-    element.src = this.appImgFallback || this.defaultPlaceholder;
     
-    // Add a class for styling fallback state if needed
+    if (this.appImgFallback === 'user') {
+      element.src = this.userPlaceholder;
+    } else if (this.appImgFallback === 'product' || !this.appImgFallback) {
+      element.src = this.productPlaceholder;
+    } else {
+      element.src = this.appImgFallback;
+    }
+    
     element.classList.add('img-fallback-active');
-    
-    // Optional: add a subtle border or background to the element
     element.style.backgroundColor = '#f5f5f5';
     element.style.objectFit = 'contain';
   }

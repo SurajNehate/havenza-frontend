@@ -32,7 +32,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
         <div class="visuals-col">
           <div class="main-image-container">
             <img [src]="selectedImage || product.thumbnailUrl || 'assets/placeholder.png'" 
-                 appImgFallback
+                 appImgFallback="product"
                  [alt]="product.name" class="main-image">
           </div>
           
@@ -41,13 +41,13 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
             <div class="thumb-box" 
                  [class.active]="selectedImage === product.thumbnailUrl"
                  (click)="selectedImage = product.thumbnailUrl">
-              <img [src]="product.thumbnailUrl || 'assets/placeholder.png'" appImgFallback>
+              <img [src]="product.thumbnailUrl || 'assets/placeholder.png'" appImgFallback="product">
             </div>
             
             <div class="thumb-box" *ngFor="let img of product.images"
                  [class.active]="selectedImage === img.imageUrl"
                  (click)="selectedImage = img.imageUrl">
-              <img [src]="img.imageUrl" appImgFallback>
+              <img [src]="img.imageUrl" appImgFallback="product">
             </div>
           </div>
         </div>

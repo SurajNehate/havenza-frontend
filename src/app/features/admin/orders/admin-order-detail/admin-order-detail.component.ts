@@ -94,7 +94,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
       <mat-divider></mat-divider>
       <div class="item-row" *ngFor="let item of order.items">
         <img [src]="item.variant?.imageUrl || 'assets/placeholder.png'" 
-             appImgFallback
+             appImgFallback="product"
              alt="Product" class="item-img">
         <div class="item-info">
           <span class="item-name">{{ item.variant?.productName || item.variant?.name || 'Product' }}</span>

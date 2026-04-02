@@ -33,7 +33,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
           
           <div class="product-image-wrapper" [routerLink]="['/products', item.product.slug]">
             <img [src]="item.product.thumbnailUrl || 'assets/placeholder.png'" 
-                 appImgFallback
+                 appImgFallback="product"
                  [alt]="item.product.name">
           </div>
           

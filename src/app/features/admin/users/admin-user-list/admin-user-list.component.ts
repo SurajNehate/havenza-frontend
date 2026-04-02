@@ -41,7 +41,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
             <th mat-header-cell *matHeaderCellDef> User </th>
             <td mat-cell *matCellDef="let element"> 
               <div class="user-cell">
-                <img [src]="element.avatarUrl || 'assets/default-avatar.png'" appImgFallback class="avatar">
+                <img [src]="element.avatarUrl || 'assets/default-avatar.png'" appImgFallback="user" class="avatar">
                 <div>
                   <div class="user-name">{{ element.fullName }}</div>
                   <div class="user-email">{{ element.email }}</div>
