@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -7,13 +7,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CouponService } from '../../../core/services/coupon.service';
+import { Coupon } from '../../../core/models/models';
 
 @Component({
   selector: 'app-checkout-dialog',
   standalone: true,
   imports: [
     CommonModule, FormsModule, MatDialogModule, MatButtonModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule, MatIconModule
+    MatFormFieldModule, MatInputModule, MatSelectModule, MatIconModule,
+    MatSnackBarModule, MatProgressSpinnerModule
   ],
   template: `
     <div class="dialog-header">
@@ -52,6 +57,46 @@ import { MatIconModule } from '@angular/material/icon';
         </mat-select>
         <mat-icon matPrefix>payment</mat-icon>
       </mat-form-field>
+
+      <!-- Coupon Code Section -->
+      <div class="coupon-section" style="margin-top: 16px;">
+        <mat-form-field appearance="outline" class="coupon-field">
+          <mat-label>Coupon Code</mat-label>
+          <input matInput
+                 [(ngModel)]="couponCode"
+                 placeholder="Enter promo code"
+                 [disabled]="!!appliedCoupon"
+                 (keyup.enter)="applyCoupon()">
+          <mat-icon matPrefix>confirmation_number</mat-icon>
+        </mat-form-field>
+        <button mat-stroked-button
+                color="primary"
+                class="apply-btn"
+                *ngIf="!appliedCoupon"
+                [disabled]="!couponCode.trim() || isValidating"
+                (click)="applyCoupon()">
+          <mat-spinner *ngIf="isValidating" diameter="18"></mat-spinner>
+          <span *ngIf="!isValidating">Apply</span>
+        </button>
+        <button mat-stroked-button
+                color="warn"
+                class="apply-btn"
+                *ngIf="appliedCoupon"
+                (click)="removeCoupon()">
+          Remove
+        </button>
+      </div>
+
+      <!-- Coupon Applied Banner -->
+      <div class="coupon-applied" *ngIf="appliedCoupon">
+        <mat-icon>check_circle</mat-icon>
+        <div>
+          <strong>{{ appliedCoupon.code }}</strong> applied!
+          <span>{{ appliedCoupon.discountPercentage }}% off
+            <span *ngIf="appliedCoupon.maxDiscountAmount">(max &#8377;{{ appliedCoupon.maxDiscountAmount }})</span>
+          </span>
+        </div>
+      </div>
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
@@ -96,6 +141,35 @@ import { MatIconModule } from '@angular/material/icon';
       min-width: 400px;
     }
     .full-width { width: 100%; }
+
+    .coupon-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .coupon-field { flex: 1; }
+    .apply-btn {
+      margin-top: 4px;
+      height: 56px;
+      min-width: 80px;
+    }
+    .apply-btn mat-spinner { margin: 0 auto; }
+
+    .coupon-applied {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+    .coupon-applied mat-icon { font-size: 20px; width: 20px; height: 20px; }
+    .coupon-applied strong { margin-right: 4px; }
+    .coupon-applied span { opacity: 0.85; }
+
     mat-dialog-actions {
       padding: 8px 24px 20px !important;
       gap: 12px;
@@ -108,18 +182,54 @@ import { MatIconModule } from '@angular/material/icon';
     }
     @media (max-width: 480px) {
       mat-dialog-content { min-width: unset; }
+      .coupon-section { flex-direction: column; }
+      .apply-btn { width: 100%; height: 40px; }
     }
   `]
 })
 export class CheckoutDialogComponent {
+  private couponService = inject(CouponService);
+  private snackBar = inject(MatSnackBar);
+
   shippingAddress = '';
   paymentMethod = 'COD';
+  couponCode = '';
+  appliedCoupon: Coupon | null = null;
+  isValidating = false;
 
   constructor(private dialogRef: MatDialogRef<CheckoutDialogComponent>) {}
 
+  applyCoupon() {
+    if (!this.couponCode.trim() || this.isValidating) return;
+    this.isValidating = true;
+    this.couponService.validateCoupon(this.couponCode.trim()).subscribe({
+      next: (res) => {
+        if (res.success && res.data) {
+          this.appliedCoupon = res.data;
+          this.couponCode = res.data.code;
+          this.snackBar.open(`Coupon "${res.data.code}" applied!`, 'Close', { duration: 3000 });
+        }
+        this.isValidating = false;
+      },
+      error: (err) => {
+        this.snackBar.open(err.error?.message || 'Invalid coupon code', 'Close', { duration: 3000 });
+        this.isValidating = false;
+      }
+    });
+  }
+
+  removeCoupon() {
+    this.appliedCoupon = null;
+    this.couponCode = '';
+  }
+
   confirm() {
     if (!this.shippingAddress.trim() || !this.paymentMethod) return;
-    this.dialogRef.close({ shippingAddress: this.shippingAddress.trim(), paymentMethod: this.paymentMethod });
+    this.dialogRef.close({
+      shippingAddress: this.shippingAddress.trim(),
+      paymentMethod: this.paymentMethod,
+      couponCode: this.appliedCoupon?.code || null
+    });
   }
 
   cancel() {

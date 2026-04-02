@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CartService } from '../../../core/services/cart.service';
+import { OrderService } from '../../../core/services/order.service';
 import { Cart, CartItem } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { CheckoutDialogComponent } from './checkout-dialog.component';
@@ -150,6 +151,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
 })
 export class CartComponent implements OnInit {
   cartService = inject(CartService);
+  orderService = inject(OrderService);
   snackBar = inject(MatSnackBar);
   router = inject(Router);
   dialog = inject(MatDialog);
@@ -223,17 +225,15 @@ export class CartComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return; // user cancelled
+      if (!result) return;
 
       this.isLoading = true;
-      const req = {
+      this.orderService.placeOrder({
         shippingAddress: result.shippingAddress,
         paymentMethod: result.paymentMethod,
-      };
-
-      const apiUrl = this.cartService['apiUrl'].replace('/cart', '/orders');
-      this.cartService['http'].post(apiUrl, req).subscribe({
-        next: (res: any) => {
+        couponCode: result.couponCode || undefined
+      }).subscribe({
+        next: (res) => {
           if (res.success) {
             this.snackBar.open('Order placed successfully! 🎉', 'Close', { duration: 4000 });
             this.cartService.clearCartLocal();
@@ -241,8 +241,8 @@ export class CartComponent implements OnInit {
           }
           this.isLoading = false;
         },
-        error: () => {
-          this.snackBar.open('Unable to complete checkout. Please try again.', 'Close', { duration: 3000 });
+        error: (err) => {
+          this.snackBar.open(err.error?.message || 'Unable to complete checkout. Please try again.', 'Close', { duration: 3000 });
           this.isLoading = false;
         }
       });
