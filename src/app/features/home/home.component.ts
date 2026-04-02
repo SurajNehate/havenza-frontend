@@ -1,9 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, inject, Inject } from '@angular/core';
 import { BannerService } from '../../core/services/banner.service';
 import { ProductService } from '../../core/services/product.service';
 import { Banner, Category, Product } from '../../core/models/models';
@@ -13,7 +14,7 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, ImgFallbackDirective],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDialogModule, ImgFallbackDirective],
   template: `
     <!-- Top Scrollable Carousel covering full window (Full viewport minus header) -->
     <div class="hero-carousel-section" *ngIf="banners.length > 0">
@@ -25,6 +26,9 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
               <h1 class="slide-title" style="margin-bottom: 32px;">{{ banner.title }}</h1>
               <button *ngIf="banner.linkUrl" mat-raised-button color="accent" class="shop-now-btn" [routerLink]="banner.linkUrl">Shop Now</button>
             </div>
+            <a *ngIf="banner.termsAndConditions" class="terms-link" (click)="$event.stopPropagation(); openTerms(banner.termsAndConditions)">
+              *Terms & Conditions Apply
+            </a>
           </div>
         </div>
       </div>
@@ -141,6 +145,13 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
     .slide-price { font-size: 2rem; font-weight: 700; color: #ffca28; margin-bottom: 32px; }
     .shop-now-btn { height: 50px; padding: 0 32px; font-size: 16px; border-radius: 25px; }
 
+    .terms-link {
+      position: absolute; bottom: 32px; right: 32px;
+      color: rgba(255,255,255,0.7); font-size: 11px; cursor: pointer;
+      text-decoration: none; transition: 0.2s;
+    }
+    .terms-link:hover { color: #ffca28; text-decoration: underline; }
+
     /* Controls */
     .carousel-control {
       position: absolute;
@@ -225,6 +236,7 @@ import { ImgFallbackDirective } from '../../shared/directives/img-fallback.direc
 export class HomeComponent implements OnInit {
   productService = inject(ProductService);
   bannerService = inject(BannerService);
+  dialog = inject(MatDialog);
 
   categories: Category[] = [];
   banners: Banner[] = [];
@@ -277,6 +289,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  openTerms(content: string) {
+    this.dialog.open(TermsDialogComponent, {
+      data: { content },
+      width: '450px'
+    });
+  }
+
   // Carousel Logic
   nextSlide() {
     if (this.banners.length === 0) return;
@@ -307,4 +326,37 @@ export class HomeComponent implements OnInit {
     clearInterval(this.slideInterval);
     this.startAutoSlide();
   }
+}
+
+@Component({
+  selector: 'app-terms-dialog',
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
+  template: `
+    <div class="terms-dialog-container">
+      <div class="dialog-header">
+        <mat-icon color="primary">description</mat-icon>
+        <h2 mat-dialog-title>Terms & Conditions</h2>
+      </div>
+      <mat-dialog-content class="mat-typography">
+        <div class="terms-content" [innerHTML]="data.content"></div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+      </mat-dialog-actions>
+    </div>
+  `,
+  styles: [`
+    .terms-dialog-container { padding: 8px; }
+    .dialog-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .dialog-header h2 { margin: 0; font-size: 20px; font-weight: 500; }
+    .terms-content { 
+      white-space: pre-wrap; line-height: 1.6; color: #444; 
+      font-size: 14px; padding: 12px 0;
+    }
+    mat-dialog-content { min-height: 100px; max-height: 60vh; }
+  `]
+})
+export class TermsDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { content: string }) {}
 }

@@ -203,6 +203,7 @@ export interface Banner {
   linkUrl?: string;
   active: boolean;
   sortOrder: number;
+  termsAndConditions?: string;
 }
 
 export interface DashboardStats {

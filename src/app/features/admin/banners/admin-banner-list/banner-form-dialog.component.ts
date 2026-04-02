@@ -55,10 +55,15 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
 
         <div class="row">
           <mat-form-field appearance="outline" style="flex: 1;">
-            <mat-label>Display Order</mat-label>
-            <input matInput type="number" [(ngModel)]="form.sortOrder" required min="0">
             <mat-icon matPrefix>sort</mat-icon>
             <mat-hint>Lower numbers appear first (e.g. 0, 1, 2)</mat-hint>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Terms & Conditions (Optional)</mat-label>
+            <textarea matInput [(ngModel)]="form.termsAndConditions" rows="3" placeholder="Min. order 1000, use code SAVE10..."></textarea>
+            <mat-icon matPrefix>description</mat-icon>
+            <mat-hint>Promotional details displayed as a link on the banner</mat-hint>
           </mat-form-field>
           
           <div class="toggle-container" style="flex: 1;">
@@ -120,7 +125,8 @@ export class BannerFormDialogComponent {
     imageUrl: '',
     linkUrl: '',
     sortOrder: 0,
-    active: true
+    active: true,
+    termsAndConditions: ''
   };
 
   constructor(
@@ -134,7 +140,8 @@ export class BannerFormDialogComponent {
         imageUrl: data.banner.imageUrl,
         linkUrl: data.banner.linkUrl || '',
         sortOrder: data.banner.sortOrder,
-        active: data.banner.active
+        active: data.banner.active,
+        termsAndConditions: data.banner.termsAndConditions || ''
       };
     }
   }
@@ -154,7 +161,8 @@ export class BannerFormDialogComponent {
       imageUrl: this.form.imageUrl.trim(),
       linkUrl: this.form.linkUrl.trim() || undefined,
       sortOrder: this.form.sortOrder,
-      active: this.form.active
+      active: this.form.active,
+      termsAndConditions: this.form.termsAndConditions.trim() || undefined
     });
   }
 
