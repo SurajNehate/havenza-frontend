@@ -17,11 +17,12 @@ import { environment } from '../../../../../environments/environment';
 import { ApiResponse, User, Role } from '../../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-admin-user-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, MatChipsModule, MatPaginatorModule, MatDialogModule, MatInputModule, MatSelectModule, MatDividerModule, MatTooltipModule, LoadingSpinnerComponent, DatePipe],
+  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, MatChipsModule, MatPaginatorModule, MatDialogModule, MatInputModule, MatSelectModule, MatDividerModule, MatTooltipModule, LoadingSpinnerComponent, DatePipe, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -40,7 +41,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
             <th mat-header-cell *matHeaderCellDef> User </th>
             <td mat-cell *matCellDef="let element"> 
               <div class="user-cell">
-                <img [src]="element.avatarUrl || 'assets/default-avatar.png'" class="avatar">
+                <img [src]="element.avatarUrl || 'assets/default-avatar.png'" appImgFallback class="avatar">
                 <div>
                   <div class="user-name">{{ element.fullName }}</div>
                   <div class="user-email">{{ element.email }}</div>
