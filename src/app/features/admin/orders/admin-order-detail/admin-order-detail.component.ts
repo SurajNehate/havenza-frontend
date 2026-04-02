@@ -63,9 +63,9 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
       <mat-card class="info-card">
         <h3><mat-icon>payments</mat-icon> Financials</h3>
         <mat-divider></mat-divider>
-        <div class="info-row"><span class="label">Subtotal</span><span>&#8377; {{ order.totalAmount }}</span></div>
+        <div class="info-row"><span class="label">Subtotal</span><span>&#8377; {{ order.totalAmount + (order.discountAmount || 0) }}</span></div>
         <div class="info-row"><span class="label">Discount</span><span class="discount">- &#8377; {{ order.discountAmount || 0 }}</span></div>
-        <div class="info-row total"><span class="label">Total</span><span>&#8377; {{ order.totalAmount - (order.discountAmount || 0) }}</span></div>
+        <div class="info-row total"><span class="label">Total</span><span>&#8377; {{ order.totalAmount }}</span></div>
       </mat-card>
 
       <!-- Update Status -->

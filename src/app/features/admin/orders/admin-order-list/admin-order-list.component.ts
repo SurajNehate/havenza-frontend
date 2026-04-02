@@ -50,7 +50,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
 
           <ng-container matColumnDef="total">
             <th mat-header-cell *matHeaderCellDef> Total Amount </th>
-            <td mat-cell *matCellDef="let element" class="price-cell"> &#8377; {{ element.totalAmount - (element.discountAmount || 0) }} </td>
+            <td mat-cell *matCellDef="let element" class="price-cell"> &#8377; {{ element.totalAmount }} </td>
           </ng-container>
 
           <ng-container matColumnDef="status">
