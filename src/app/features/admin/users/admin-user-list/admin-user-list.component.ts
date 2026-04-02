@@ -158,7 +158,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
     /* Edit Overlay */
     .edit-overlay {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5); z-index: 2000;
+      background: rgba(0,0,0,0.5); z-index: 100;
       display: flex; justify-content: center; align-items: flex-start;
       padding-top: 80px;
     }
