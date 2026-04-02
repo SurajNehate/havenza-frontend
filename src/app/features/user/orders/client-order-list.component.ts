@@ -143,6 +143,7 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
     .status-confirmed, .status-delivered { background: #e8f5e9; color: #2e7d32; }
     .status-shipped { background: #fff3e0; color: #f57c00; }
     .status-cancelled { background: #ffebee; color: #c62828; }
+    .status-returned { background: #f3e5f5; color: #7b1fa2; }
 
     .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 24px; background: var(--bg-card); border-radius: 12px; text-align: center; }
     .empty-state mat-icon { font-size: 64px; width: 64px; height: 64px; color: var(--text-secondary); margin-bottom: 16px; opacity: 0.5; }
@@ -225,6 +226,7 @@ export class ClientOrderListComponent implements OnInit {
       case 'SHIPPED': return 'status-shipped';
       case 'DELIVERED': return 'status-delivered';
       case 'CANCELLED': return 'status-cancelled';
+      case 'RETURNED': return 'status-returned';
       default: return 'status-placed';
     }
   }

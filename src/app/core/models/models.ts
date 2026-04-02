@@ -210,4 +210,6 @@ export interface DashboardStats {
   totalOrders: number;
   totalProducts: number;
   totalRevenue: number;
+  salesByStatus?: Record<string, number>;
+  monthlySales?: Record<string, number>;
 }

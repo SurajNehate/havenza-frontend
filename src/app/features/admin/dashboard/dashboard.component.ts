@@ -6,18 +6,10 @@ import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { ApiResponse } from '../../../core/models/models';
+import { ApiResponse, DashboardStats } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 
-interface DashboardStats {
-  totalRevenue: number;
-  totalOrders: number;
-  totalUsers: number;
-  totalProducts: number;
-  salesByStatus: Record<string, number>;
-  monthlySales: Record<string, number>;
-  topProducts: any[];
-}
+
 
 @Component({
   selector: 'app-dashboard',

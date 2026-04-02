@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { Order, PlaceOrderRequest, ApiResponse, PagedResponse } from '../models/models';
+import { Order, PlaceOrderRequest, ApiResponse, PagedResponse, Payment } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   private apiUrl = `${environment.apiUrl}/orders`;
+  private paymentUrl = `${environment.apiUrl}/payments`;
 
   constructor(private http: HttpClient) {}
 
@@ -28,5 +29,13 @@ export class OrderService {
 
   cancelOrder(id: number): Observable<ApiResponse<Order>> {
     return this.http.put<ApiResponse<Order>>(`${this.apiUrl}/${id}/cancel`, {});
+  }
+
+  processPayment(orderId: number): Observable<ApiResponse<Payment>> {
+    return this.http.post<ApiResponse<Payment>>(`${this.paymentUrl}/${orderId}`, {});
+  }
+
+  getPaymentStatus(orderId: number): Observable<ApiResponse<Payment>> {
+    return this.http.get<ApiResponse<Payment>>(`${this.paymentUrl}/${orderId}`);
   }
 }

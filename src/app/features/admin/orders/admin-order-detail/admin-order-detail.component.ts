@@ -80,6 +80,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
             <mat-option value="SHIPPED">SHIPPED</mat-option>
             <mat-option value="DELIVERED">DELIVERED</mat-option>
             <mat-option value="CANCELLED">CANCELLED</mat-option>
+            <mat-option value="RETURNED">RETURNED</mat-option>
           </mat-select>
         </mat-form-field>
         <button mat-flat-button color="primary" class="full-width" (click)="updateStatus()" [disabled]="newStatus === order.status">
@@ -132,6 +133,7 @@ import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback
     .status-shipped { background: #fff3e0; color: #f57c00; }
     .status-delivered { background: #e8f5e9; color: #2e7d32; }
     .status-cancelled { background: #ffebee; color: #c62828; }
+    .status-returned { background: #f3e5f5; color: #7b1fa2; }
 
     .full-width { width: 100%; }
 
