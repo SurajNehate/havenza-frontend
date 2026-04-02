@@ -174,6 +174,23 @@ import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.di
     .order-summary-box p { margin: 0 0 8px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
     .order-summary-box p:last-child { margin-bottom: 0; }
     .order-summary-box strong { color: var(--text-primary); }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      .page-container { padding: 40px 16px; }
+      .header-section h1 { font-size: 24px; }
+      
+      /* Hide date and actions on mobile to save space */
+      .mat-column-date, .mat-column-actions { display: none !important; }
+      
+      .mat-cell, .mat-header-cell { padding: 8px !important; }
+      .order-id { font-size: 13px; }
+      
+      .detail-container { padding: 16px 12px; }
+      .order-item { flex-direction: column; align-items: flex-start; }
+      .item-img { width: 100%; height: 180px; }
+      .item-total { width: 100%; text-align: right; margin-top: 8px; border-top: 1px dotted rgba(0,0,0,0.1); padding-top: 8px; }
+    }
   `],
   animations: [
     trigger('detailExpand', [

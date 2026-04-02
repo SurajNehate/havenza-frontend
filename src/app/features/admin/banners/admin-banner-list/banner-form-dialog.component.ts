@@ -28,14 +28,15 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
     </div>
 
     <mat-dialog-content>
-      <!-- Wrap content in a div with proper spacing -->
       <div class="form-container">
+        <!-- Title -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Banner Title</mat-label>
           <input matInput [(ngModel)]="form.title" placeholder="e.g. Summer Sale 50% Off" required>
           <mat-icon matPrefix>title</mat-icon>
         </mat-form-field>
 
+        <!-- Image Upload -->
         <div class="image-upload-section">
           <label class="section-label">Banner Image <span class="required">*</span></label>
           <p class="section-hint">Upload a horizontal banner image.</p>
@@ -46,6 +47,7 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
           </app-image-upload>
         </div>
 
+        <!-- Link URL -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Link URL (Optional)</mat-label>
           <input matInput [(ngModel)]="form.linkUrl" placeholder="e.g. /products?search=summer">
@@ -53,26 +55,30 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
           <mat-hint>Where users go when they click this banner</mat-hint>
         </mat-form-field>
 
+        <!-- Row for Order & Toggle -->
         <div class="row">
           <mat-form-field appearance="outline" style="flex: 1;">
+            <mat-label>Display Order</mat-label>
+            <input matInput type="number" [(ngModel)]="form.sortOrder" required min="0">
             <mat-icon matPrefix>sort</mat-icon>
-            <mat-hint>Lower numbers appear first (e.g. 0, 1, 2)</mat-hint>
-          </mat-form-field>
-          
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Terms & Conditions (Optional)</mat-label>
-            <textarea matInput [(ngModel)]="form.termsAndConditions" rows="3" placeholder="Min. order 1000, use code SAVE10..."></textarea>
-            <mat-icon matPrefix>description</mat-icon>
-            <mat-hint>Promotional details displayed as a link on the banner</mat-hint>
+            <mat-hint>Lower numbers appear first (0, 1, 2)</mat-hint>
           </mat-form-field>
           
           <div class="toggle-container" style="flex: 1;">
             <mat-slide-toggle [(ngModel)]="form.active" color="primary">
               Active Status
             </mat-slide-toggle>
-            <p class="toggle-hint">Inactive banners are hidden from users</p>
+            <p class="toggle-hint">Inactive banners are hidden</p>
           </div>
         </div>
+
+        <!-- Terms & Conditions (Standalone) -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Terms & Conditions (Optional)</mat-label>
+          <textarea matInput [(ngModel)]="form.termsAndConditions" rows="3" placeholder="e.g. Min. order 1000, code SAVE10"></textarea>
+          <mat-icon matPrefix>description</mat-icon>
+          <mat-hint>Shown via link on the banner slide</mat-hint>
+        </mat-form-field>
       </div>
     </mat-dialog-content>
 
