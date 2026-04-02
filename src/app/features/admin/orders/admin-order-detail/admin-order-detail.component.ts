@@ -13,11 +13,12 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { Order, OrderStatus } from '../../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
+import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-admin-order-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, MatDividerModule, MatSelectModule, FormsModule, LoadingSpinnerComponent, DatePipe],
+  imports: [CommonModule, RouterModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, MatDividerModule, MatSelectModule, FormsModule, LoadingSpinnerComponent, DatePipe, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -92,15 +93,16 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
       <h3><mat-icon>inventory_2</mat-icon> Order Items ({{ order.items?.length || 0 }})</h3>
       <mat-divider></mat-divider>
       <div class="item-row" *ngFor="let item of order.items">
-        <img [src]="item.variant?.imageUrl || 'assets/placeholder.png'" alt="Product" class="item-img">
+        <img [src]="item.variant?.imageUrl || 'assets/placeholder.png'" 
+             appImgFallback
+             alt="Product" class="item-img">
         <div class="item-info">
           <span class="item-name">{{ item.variant?.productName || item.variant?.name || 'Product' }}</span>
           <span class="item-variant">Variant: {{ item.variant?.name }} &middot; SKU: {{ item.variant?.sku }}</span>
         </div>
         <div class="item-pricing">
           <span class="item-qty">x{{ item.quantity }}</span>
-          <span class="item-price">&#8377; {{ item.unitPrice }}</span>
-          <span class="item-total">&#8377; {{ item.unitPrice * item.quantity }}</span>
+          <span class="item-total" style="margin-left: auto;">&#8377; {{ item.unitPrice * item.quantity }}</span>
         </div>
       </div>
     </mat-card>
@@ -109,7 +111,8 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
     .page-header h1 { margin: 0 0 4px; font-size: 24px; font-weight: 500; }
     .page-header p { margin: 0; color: #757575; }
-    .header-actions { display: flex; gap: 12px; }
+    .header-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    @media (max-width: 600px) { .header-actions button { width: 100%; } }
 
     .detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px; }
 
@@ -142,10 +145,14 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     .item-info { flex: 1; display: flex; flex-direction: column; }
     .item-name { font-weight: 500; font-size: 14px; }
     .item-variant { font-size: 12px; color: #757575; margin-top: 2px; }
-    .item-pricing { display: flex; align-items: center; gap: 16px; }
-    .item-qty { color: #757575; font-size: 14px; }
-    .item-price { color: #757575; font-size: 14px; }
+    .item-pricing { display: flex; align-items: center; gap: 12px; min-width: 100px; }
+    .item-qty { color: #757575; font-size: 14px; white-space: nowrap; }
     .item-total { font-weight: 600; font-size: 15px; color: #3f51b5; }
+    
+    @media (max-width: 600px) {
+      .item-row { flex-wrap: wrap; }
+      .item-pricing { width: 100%; justify-content: flex-end; border-top: 1px dashed #eee; padding-top: 8px; margin-top: 4px; }
+    }
   `]
 })
 export class AdminOrderDetailComponent implements OnInit {

@@ -13,11 +13,12 @@ import { Product, Category } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-client-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatSelectModule, FormsModule, LoadingSpinnerComponent, MatTooltipModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatSelectModule, FormsModule, LoadingSpinnerComponent, MatTooltipModule, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -54,7 +55,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
           </button>
           
           <div class="product-image-wrapper" [routerLink]="['/products', product.slug]">
-            <img [src]="product.thumbnailUrl || 'assets/placeholder.png'" [alt]="product.name">
+            <img [src]="product.thumbnailUrl || 'assets/placeholder.png'" 
+                 appImgFallback
+                 [alt]="product.name">
           </div>
           <mat-card-content class="product-info" [routerLink]="['/products', product.slug]">
             <div class="category-tag">{{ product.category?.name }}</div>

@@ -11,10 +11,12 @@ import { ProductService } from '../../../../core/services/product.service';
 import { Product } from '../../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 
+import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback.directive';
+
 @Component({
   selector: 'app-admin-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, MatPaginatorModule, LoadingSpinnerComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, MatPaginatorModule, LoadingSpinnerComponent, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -35,7 +37,9 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef> Image </th>
             <td mat-cell *matCellDef="let element"> 
-              <img [src]="element.thumbnailUrl || 'assets/placeholder.png'" class="row-img">
+              <img [src]="element.thumbnailUrl || 'assets/placeholder.png'" 
+                   appImgFallback
+                   class="row-img">
             </td>
           </ng-container>
 
@@ -100,16 +104,16 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     </mat-card>
   `,
   styles: [`
-    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
     .header-titles h1 { margin: 0 0 4px 0; font-size: 24px; font-weight: 500; }
     .header-titles p { margin: 0; color: #757575; }
     
     .table-card { overflow: hidden; }
-    .table-container { padding: 0 !important; }
+    .table-container { padding: 0 !important; overflow-x: auto; }
     
-    .custom-table { width: 100%; border-collapse: collapse; }
+    .custom-table { width: 100%; min-width: 600px; border-collapse: collapse; }
     
-    .row-img { width: 40px; height: 40px; object-fit: contain; border-radius: 4px; border: 1px solid #eee; background: #fafafa; }
+    .row-img { width: 44px; height: 44px; object-fit: contain; border-radius: 6px; border: 1px solid #eee; background: #fafafa; }
     
     .product-name { font-weight: 500; color: #333; }
     .product-sku { font-size: 12px; color: #757575; }
@@ -120,12 +124,15 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     .actions-header { text-align: right; padding-right: 24px !important; }
     .actions-cell { text-align: right; padding-right: 16px !important; }
     
-    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; color: #757575; }
-    .empty-icon { font-size: 48px; height: 48px; width: 48px; color: #e0e0e0; margin-bottom: 16px; }
-    
-    /* Enhance table row hover */
-    mat-row { transition: background 0.2s; }
-    mat-row:hover { background: #fafafa; }
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .admin-header { flex-direction: column; align-items: flex-start; }
+      .header-titles h1 { font-size: 20px; }
+      .custom-table { min-width: 450px; }
+      
+      /* Hide secondary columns on mobile */
+      .mat-column-category, .mat-column-stock { display: none !important; }
+    }
   `]
 })
 export class AdminProductListComponent implements OnInit {

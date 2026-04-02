@@ -9,11 +9,12 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 import { Wishlist, Product } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { CartService } from '../../../core/services/cart.service';
+import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, LoadingSpinnerComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, LoadingSpinnerComponent, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -31,7 +32,9 @@ import { CartService } from '../../../core/services/cart.service';
           </button>
           
           <div class="product-image-wrapper" [routerLink]="['/products', item.product.slug]">
-            <img [src]="item.product.thumbnailUrl || 'assets/placeholder.png'" [alt]="item.product.name">
+            <img [src]="item.product.thumbnailUrl || 'assets/placeholder.png'" 
+                 appImgFallback
+                 [alt]="item.product.name">
           </div>
           
           <mat-card-content class="product-info">

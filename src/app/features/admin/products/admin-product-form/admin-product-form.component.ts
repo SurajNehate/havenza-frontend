@@ -12,10 +12,12 @@ import { ProductService } from '../../../../core/services/product.service';
 import { Category, Product, ProductVariant } from '../../../../core/models/models';
 import { ImageUploadComponent } from '../../../../shared/components/image-upload/image-upload.component';
 
+import { ImgFallbackDirective } from '../../../../shared/directives/img-fallback.directive';
+
 @Component({
   selector: 'app-admin-product-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatCardModule, MatInputModule, MatButtonModule, MatIconModule, MatSelectModule, ImageUploadComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatCardModule, MatInputModule, MatButtonModule, MatIconModule, MatSelectModule, ImageUploadComponent, ImgFallbackDirective],
   template: `
     <div class="header-actions">
       <button mat-button routerLink=".."><mat-icon>arrow_back</mat-icon> Back to Products</button>
@@ -133,7 +135,7 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
             <mat-card-content class="img-content">
               <div class="extra-images-list" *ngIf="imageUrls.length > 0">
                 <div class="extra-image-box" *ngFor="let control of imageUrls.controls; let i=index">
-                  <img [src]="control.value" alt="extra image" />
+                  <img [src]="control.value" appImgFallback alt="extra image" />
                   <button type="button" mat-icon-button color="warn" class="remove-img-btn" (click)="removeExtraImage(i)">
                      <mat-icon>close</mat-icon>
                   </button>
@@ -180,10 +182,13 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
     mat-card-title { font-size: 18px; margin: 0; }
     
     .full-width { width: 100%; margin-top: 8px; }
-    .form-row { display: flex; gap: 16px; width: 100%; }
-    .half-width { flex: 1; }
-    .third-width { flex: 1 1 33%; }
-    @media (max-width: 700px) { .form-row { flex-direction: column; gap: 0; } }
+    .form-row { display: flex; gap: 16px; width: 100%; flex-wrap: wrap; }
+    .half-width { flex: 1; min-width: 200px; }
+    .third-width { flex: 1 1 calc(33% - 16px); min-width: 180px; }
+    @media (max-width: 700px) { 
+      .form-row { flex-direction: column; gap: 0; } 
+      .half-width, .third-width { width: 100%; }
+    }
     
     .img-content { padding-top: 16px; }
     

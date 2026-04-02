@@ -11,11 +11,12 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Product, ProductVariant } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
+import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-client-product-detail',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatChipsModule, LoadingSpinnerComponent],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatChipsModule, LoadingSpinnerComponent, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -30,7 +31,9 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         <!-- Visuals Column -->
         <div class="visuals-col">
           <div class="main-image-container">
-            <img [src]="selectedImage || product.thumbnailUrl || 'assets/placeholder.png'" [alt]="product.name" class="main-image">
+            <img [src]="selectedImage || product.thumbnailUrl || 'assets/placeholder.png'" 
+                 appImgFallback
+                 [alt]="product.name" class="main-image">
           </div>
           
           <div class="thumbnails-row" *ngIf="product.images && product.images.length > 0">
@@ -38,13 +41,13 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
             <div class="thumb-box" 
                  [class.active]="selectedImage === product.thumbnailUrl"
                  (click)="selectedImage = product.thumbnailUrl">
-              <img [src]="product.thumbnailUrl || 'assets/placeholder.png'">
+              <img [src]="product.thumbnailUrl || 'assets/placeholder.png'" appImgFallback>
             </div>
             
             <div class="thumb-box" *ngFor="let img of product.images"
                  [class.active]="selectedImage === img.imageUrl"
                  (click)="selectedImage = img.imageUrl">
-              <img [src]="img.imageUrl">
+              <img [src]="img.imageUrl" appImgFallback>
             </div>
           </div>
         </div>

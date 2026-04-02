@@ -95,8 +95,8 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     .header-titles p { margin: 0; color: #757575; }
     
     .table-card { overflow: hidden; }
-    .table-container { padding: 0 !important; }
-    .custom-table { width: 100%; border-collapse: collapse; }
+    .table-container { padding: 0 !important; overflow-x: auto; }
+    .custom-table { width: 100%; min-width: 650px; border-collapse: collapse; }
     
     .id-cell { font-weight: 500; color: #424242; }
     .customer-name { font-weight: 500; color: #333; }
@@ -111,6 +111,12 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     
     mat-row { transition: background 0.2s; }
     mat-row:hover { background: #fafafa; }
+    
+    @media (max-width: 600px) {
+      .header-titles h1 { font-size: 20px; }
+      .custom-table { min-width: 450px; }
+      .mat-column-date, .mat-column-total { display: none !important; }
+    }
   `]
 })
 export class AdminOrderListComponent implements OnInit {

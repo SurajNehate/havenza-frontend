@@ -11,11 +11,12 @@ import { CartService } from '../../../core/services/cart.service';
 import { Cart, CartItem } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { CheckoutDialogComponent } from './checkout-dialog.component';
+import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, LoadingSpinnerComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, LoadingSpinnerComponent, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -28,7 +29,9 @@ import { CheckoutDialogComponent } from './checkout-dialog.component';
         <div class="items-column">
           <mat-card class="cart-item" *ngFor="let item of cart.items">
             <div class="item-visual" [routerLink]="['/products', item.variant.productSlug]">
-              <img [src]="item.variant.imageUrl || 'assets/placeholder.png'" alt="Product Image">
+              <img [src]="item.variant.imageUrl || 'assets/placeholder.png'" 
+                   appImgFallback
+                   alt="Product Image">
             </div>
             
             <div class="item-details">

@@ -11,11 +11,12 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { OrderService } from '../../../core/services/order.service';
 import { Order } from '../../../core/models/models';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
+import { ImgFallbackDirective } from '../../../shared/directives/img-fallback.directive';
 
 @Component({
   selector: 'app-client-order-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, MatChipsModule, MatPaginatorModule, LoadingSpinnerComponent],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatTableModule, MatChipsModule, MatPaginatorModule, LoadingSpinnerComponent, ImgFallbackDirective],
   template: `
     <app-loading-spinner [show]="isLoading"></app-loading-spinner>
     
@@ -69,7 +70,9 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
                   <h4>Items in this order</h4>
                   <div class="item-list">
                     <div class="order-item" *ngFor="let item of order.items">
-                      <img [src]="item.variant?.imageUrl || 'assets/placeholder.png'" class="item-img" alt="Product Image">
+                      <img [src]="item.variant?.imageUrl || 'assets/placeholder.png'" 
+                           appImgFallback
+                           class="item-img" alt="Product Image">
                       <div class="item-info">
                         <h5>{{ item.variant?.productName || item.variant?.name || 'Product' }}</h5>
                         <span class="variant-name">Variant: {{ item.variant?.name }}</span>
